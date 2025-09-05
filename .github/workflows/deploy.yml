@@ -2,10 +2,12 @@ name: Deploy to GitHub Packages
 
 on:
   push:
-    branches: [ "master" ]   # agar asosiy branch "main" bo'lsa, "main" deb yozing
+    branches: [ "master" ]  # kerak bo'lsa main
+
 permissions:
   contents: read
   packages: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,17 +16,24 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java & inject Maven credentials
+      - name: Set up JDK 21 + inject Maven creds
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
-          server-id: github                # pom.xml <id> bilan bir xil
-          server-username: GITHUB_ACTOR    # GitHub Actions foydalanuvchisi
+          server-id: github              # pom.xml <id> bilan BIR XIL
+          server-username: GITHUB_ACTOR  # literal user yozmang
           server-password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Deploy
-        run: mvn -B clean deploy
+      # Diagnostika: credential kiritildimi?
+      - name: Show injected Maven server (debug)
+        run: |
+          echo "=== ~/.m2/settings.xml (masked) ==="
+          sed -E 's/(<password>).*?(<\/password>)/\1***\2/' ~/.m2/settings.xml || true
+          grep -A3 "<id>github</id>" ~/.m2/settings.xml || true
+
+      - name: Build & Deploy (verbose)
+        run: mvn -B -e -X clean deploy
