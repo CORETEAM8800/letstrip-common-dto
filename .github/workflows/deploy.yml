@@ -3,11 +3,9 @@ name: Deploy to GitHub Packages
 on:
   push:
     branches: [ "master" ]   # agar asosiy branch "main" bo'lsa, "main" deb yozing
-
 permissions:
   contents: read
   packages: write
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
