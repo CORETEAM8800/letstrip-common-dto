@@ -1,28 +1,26 @@
-name: Maven Deploy
+name: Deploy to GitHub Packages
 
 on:
   push:
     branches: [ "master" ]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-    permissions:
-     contents: read
-     packages: write
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
-          server-id: github      # pom.xml da <id> bilan bir xil bo‘lishi kerak
+          server-id: github                  # <id> bilan bir xil
           server-username: GITHUB_ACTOR
           server-password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and deploy
-        run: mvn deploy
+      - name: Build & Deploy
+        run: mvn -B -e -X clean deploy
