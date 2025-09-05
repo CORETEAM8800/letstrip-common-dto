@@ -2,7 +2,7 @@ name: Deploy to GitHub Packages
 
 on:
   push:
-    branches: [ "master" ]   # agar sizda default "main" bo'lsa, "main" deb yozing
+    branches: [ "master" ]  # default branchingiz "main" bo'lsa, shu yerini main qiling
 
 permissions:
   contents: read
@@ -25,8 +25,15 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           server-id: github              # pom.xml <id> bilan BIR XIL
-          server-username: GITHUB_ACTOR  # literal ism yozmang
+          server-username: GITHUB_ACTOR  # literal ism YO'Q
           server-password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Show injected Maven server (for debug)
+        run: |
+          echo "=== ~/.m2/settings.xml (masked) ==="
+          sed -E 's/(<password>).*?(<\/password>)/\1***\2/' ~/.m2/settings.xml || true
+          echo "==================================="
+          grep -A3 "<id>github</id>" ~/.m2/settings.xml || true
 
       - name: Build & Deploy (verbose)
         run: mvn -B -e -X clean deploy
