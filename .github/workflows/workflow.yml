@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           server-id: github                  # <id> bilan bir xil
-          server-username: GITHUB_ACTOR
+          server-username: CORETEAM8800
           server-password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Deploy
