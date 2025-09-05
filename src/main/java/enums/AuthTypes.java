@@ -1,4 +1,4 @@
-package uz.letstrip.userservice.enums;
+package enums;
 
 public enum AuthTypes {
     FACEBOOK, GOOGLE, EMAIL, APPLE_ID

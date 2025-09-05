@@ -1,4 +1,25 @@
-name: workflow.yml
+name: Maven Deploy
+
 on:
+  push:
+    branches: [ "main" ]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          server-id: github      # pom.xml da <id> bilan bir xil bo‘lishi kerak
+          server-username: GITHUB_ACTOR
+          server-password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and deploy
+        run: mvn deploy

@@ -1,20 +1,20 @@
-package uz.letstrip.userservice.utils;
-
+package utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 
-@Component
 @RequiredArgsConstructor
-public class WebUtils {
-    private static final List<String> DEVICES = List.of("Android", "iPhone", "iPad", "Windows", "Macintosh", "Linux");
-    private final HttpServletRequest request;
+public class WebUtil {
 
+    private static final List<String> DEVICES =
+            List.of("Android", "iPhone", "iPad", "Windows", "Macintosh", "Linux");
+
+    private final HttpServletRequest request;
     public String getDeviceType() {
         String userAgent = getUserAgent();
         if (userAgent != null) {
@@ -22,28 +22,26 @@ public class WebUtils {
                     .filter(userAgent::contains)
                     .findAny()
                     .orElse("Unknown");
-        } else return "Unknown";
+        }
+        return "Unknown";
     }
-
-
     public String getClientIpAddress() {
-        String xForwardedForHeader = Objects.requireNonNullElse(getHeader(), request.getRemoteAddr());
-        return xForwardedForHeader.split(",")[0];
+        String xForwardedForHeader = Objects.requireNonNullElse(getHeader("X-Forwarded-For"), request.getRemoteAddr());
+        return xForwardedForHeader.split(",")[0].trim();
     }
 
-    private String getHeader() {
-        return request.getHeader("X-Forwarded-For");
+    private String getHeader(String headerName) {
+        return request.getHeader(headerName);
     }
 
     public String getHost() {
-        return request.getHeader("Host");
+        return getHeader("Host");
     }
 
     public String getUserAgent() {
-        return request.getHeader("User-Agent");
+        return getHeader("User-Agent");
     }
-
     public String getBody() throws IOException {
-        return new String(request.getInputStream().readAllBytes());
+        return new String(request.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
     }
 }
