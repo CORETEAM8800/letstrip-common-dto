@@ -2,7 +2,7 @@ name: Deploy to GitHub Packages
 
 on:
   push:
-    branches: [ "master" ]  # default branchingiz "main" bo'lsa, shu yerini main qiling
+    branches: [ "master" ]   # agar asosiy branch "main" bo'lsa, "main" deb yozing
 
 permissions:
   contents: read
@@ -16,27 +16,17 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21 + Maven server creds
+      - name: Setup Java & inject Maven credentials
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
-          server-id: github              # pom.xml <id> bilan BIR XIL
-          server-username: GITHUB_ACTOR  # literal ism YO'Q
+          server-id: github                # pom.xml <id> bilan bir xil
+          server-username: GITHUB_ACTOR    # GitHub Actions foydalanuvchisi
           server-password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Show injected Maven server (for debug)
-        run: |
-          echo "=== ~/.m2/settings.xml (masked) ==="
-          sed -E 's/(<password>).*?(<\/password>)/\1***\2/' ~/.m2/settings.xml || true
-          echo "==================================="
-          grep -A3 "<id>github</id>" ~/.m2/settings.xml || true
-
-#      - name: Build & Deploy (verbose)
-#        run: mvn -B -e -X clean deploy
-
-      - name: Build & Deploy (alt repo, debug)
-        run: mvn -B -e -X clean deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/CORETEAM8080/letstrip-common-dto
+      - name: Build and Deploy
+        run: mvn -B clean deploy
