@@ -2,7 +2,7 @@ name: Deploy to GitHub Packages
 
 on:
   push:
-    branches: [ "master" ]   # agar default branch "main" bo'lsa, "main" deb yozing
+    branches: [ "master" ]   # agar sizda default "main" bo'lsa, "main" deb yozing
 
 permissions:
   contents: read
@@ -24,8 +24,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-          server-id: github                 # pom.xml dagi <id> bilan aynan bir xil
-          server-username: GITHUB_ACTOR     # literal ism YO'Q!
+          server-id: github              # pom.xml <id> bilan BIR XIL
+          server-username: GITHUB_ACTOR  # literal ism yozmang
           server-password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Deploy (verbose)
