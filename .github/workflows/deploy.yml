@@ -37,3 +37,6 @@ jobs:
 
       - name: Build & Deploy (verbose)
         run: mvn -B -e -X clean deploy
+
+      - name: Build & Deploy (alt repo, debug)
+        run: mvn -B -e -X clean deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/CORETEAM8080/letstrip-common-dto
