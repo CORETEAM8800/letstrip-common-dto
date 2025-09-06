@@ -4,10 +4,7 @@ import dto.Message;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 
-/**
- * @Author javohir
- * @Date 24/03/2024
- */
+
 @Setter
 @AllArgsConstructor
 public abstract class BaseException extends RuntimeException {

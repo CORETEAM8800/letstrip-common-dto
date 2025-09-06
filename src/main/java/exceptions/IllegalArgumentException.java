@@ -1,7 +1,7 @@
 package exceptions;
 
-import uz.letstrip.userservice.dto.Message;
 
+import dto.Message;
 
 public class IllegalArgumentException extends BaseException {
 
