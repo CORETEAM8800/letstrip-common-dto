@@ -7,21 +7,12 @@ public class MessageUtils {
     public static final Message OTP_INVALID = new Message("Tasdiqlash kodi muddati tugagan yoki yaroqsiz. Qaytadan urinib kuring", "OTP is expired or invalid. Please try again", "Срок действия OTP истек или он недействителен. Пожалуйста, попробуйте еще раз");
     public static final Message OTP_EXPIRED = new Message("Tasdiqlash kodi muddati tugagan. Qaytadan urinib kuring", "OTP is expired. Please try again", "Срок действия OTP истек. Пожалуйста, попробуйте еще раз");
     public static final Message OTP_TYPE_IS_INVALID = new Message("Bu tasdiqlash kodi yaroqsiz. Boshqa maqsadda junatilgan", "This verification code is invalid. Intended for another purpose", "Этот код подтверждения недействителен. Предназначен для другой цели");
-
-
     public static final Message USER_NOT_FOUND = new Message("Foydalanuvchi topilmadi", "User not found with this login", "Пользователь не найден с этим логином");
-
     public static final Message DEVICE_NOT_FOUND = new Message("Foydalanuvchining qurilmasi hali ro'yxatga olinmagan!", "User device has not been registered yet!", "Устройство пользователя еще не зарегистрировано!");
-
     public static final Message USER_ALREADY_EXISTS = new Message("Ushbu login bilan foydalanuvchi mavjud", "User already exists with this login", "Пользователь уже существует с этим логином");
-
     public static final Message USER_ALREADY_CONFIRMED = new Message("Ushbu login bilan foydalanuvchi hisobi faollashtirilgan", "The user account is activated with this login", "Учетная запись пользователя активируется с этим логином");
-
     public static final Message USER_STATUS_BLOCKED = new Message("Foydalanuvchi bloklangan", "User is blocked", "Пользователь заблокирован");
-
     public static final Message USER_STATUS_DELETED = new Message("Foydalanuvchi hisobi uchirilgan", "User account is deleted", "Аккаунт пользователя удален");
-
-
     public static final Message INVALID_EMAIL = new Message("Elektron pochta orqali ro'yxatdan o'tish uchun elektron pochta manzili yaroqsiz", "Email is invalid for register with email.", "Электронная почта недействительна для регистрации по электронной почте.");
 
 
