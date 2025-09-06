@@ -32,11 +32,15 @@
     </dependencies>
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/CORETEAM8080/letstrip-common-dto</url>
+            <id>nexus</id>
+            <url>https://nexus.coreteam.uz/repository/maven-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <url>https://nexus.coreteam.uz/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
+
 
 
 
