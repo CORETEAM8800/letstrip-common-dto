@@ -17,9 +17,19 @@ jobs:
           java-version: '21'
           cache: maven
 
-      - name: Deploy to Nexus
-        run: mvn deploy --settings .github/settings.xml
-        env:
-         MAVEN_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-         MAVEN_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+      - name: Setup settings.xml for Nexus
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<EOF
+          <settings>
+            <servers>
+              <server>
+                <id>nexus</id>
+                <username>${{ secrets.NEXUS_USERNAME }}</username>
+                <password>${{ secrets.NEXUS_PASSWORD }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+      
 
