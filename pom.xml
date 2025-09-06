@@ -6,7 +6,7 @@
 
     <groupId>travel.letstrip</groupId>
     <artifactId>letstrip-common-dto</artifactId>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.6.1</version>
     <packaging>jar</packaging>
 
     <properties>
