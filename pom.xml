@@ -40,10 +40,6 @@
             <url>https://nexus.coreteam.uz/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
-
-
-
-
     <build>
         <plugins>
             <plugin>
