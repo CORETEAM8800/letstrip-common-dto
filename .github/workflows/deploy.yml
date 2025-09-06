@@ -2,11 +2,12 @@ name: Deploy to Nexus
 
 on:
   push:
-    branches: [ "master" ]  # yoki "release/**"
+    branches: [ "master" ]  # yoki kerakli branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
@@ -31,5 +32,9 @@ jobs:
             </servers>
           </settings>
           EOF
-      
 
+      - name: Deploy to Nexus
+        run: mvn deploy -DskipTests=true
+        env:
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
